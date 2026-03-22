@@ -113,5 +113,5 @@ class FolderNode {
 
 - **Language:** Java  
 - **UI:** JavaFX  
-- **Build:** Maven (for dependencies and packaging)  
+- **Build:** Maven 
 - **Data Storage:** JSON (stored locally, e.g., `templates/` folder in app directory)
