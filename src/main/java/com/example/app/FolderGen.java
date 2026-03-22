@@ -14,6 +14,10 @@ public class FolderGen extends Application {
         );
 
         Scene scene = new Scene(loader.load(), 700, 450);
+        // Add style
+        scene.getStylesheets().add(
+            getClass().getResource("/com/example/style/index.css").toExternalForm()
+        );
 
         stage.setTitle("Folder Structure Generator");
         stage.setMinWidth(600);
