@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.Controllers.TemplateCreator">
+
+    <!-- TOP: Template Name -->
+    <top>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Label text="Create Template"/>
+
+            <TextField fx:id="templateNameField"
+                       promptText="Enter template name..." />
+        </VBox>
+    </top>
+
+    <!-- CENTER: Tree Builder -->
+    <center>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Label text="Folder Structure"/>
+
+            <TreeView fx:id="treeView" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </center>
+
+    <!-- RIGHT: Actions -->
+    <right>
+        <VBox spacing="10" style="-fx-padding: 10;" prefWidth="150">
+
+            <Button text="Add Folder" onAction="#handleAddFolder"/>
+            <Button text="Remove Selected" onAction="#handleRemoveFolder"/>
+
+            <Separator/>
+
+            <Button text="Save Template" onAction="#handleSaveTemplate"/>
+        </VBox>
+    </right>
+
+</BorderPane>
