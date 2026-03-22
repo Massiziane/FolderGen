@@ -1,0 +1,76 @@
+/* Root */
+.root {
+    -fx-background-color: #0f172a;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+}
+
+/* TextField */
+.text-field {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: #e2e8f0;
+    -fx-prompt-text-fill: #64748b;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #334155;
+    -fx-padding: 6 10;
+}
+
+.text-field:focused {
+    -fx-border-color: #3b82f6;
+}
+
+/* TreeView */
+.tree-view {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #334155;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+/* Tree cells */
+.tree-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e2e8f0;
+    -fx-padding: 6 10;
+}
+
+.tree-cell:hover {
+    -fx-background-color: #334155;
+}
+
+.tree-cell:selected {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+
+/* Hover */
+.button:hover {
+    -fx-background-color: #2563eb;
+}
+
+/* Separator */
+.separator .line {
+    -fx-border-color: #334155;
+}
+
+/* VBox / layout polish */
+.vbox {
+    -fx-spacing: 10;
+}
