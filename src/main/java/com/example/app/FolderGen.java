@@ -3,6 +3,7 @@ package com.example.app;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class FolderGen extends Application {
@@ -18,7 +19,11 @@ public class FolderGen extends Application {
             getClass().getResource("/com/example/style/index.css").toExternalForm()
         );
 
-        stage.setTitle("Folder Structure Generator");
+        stage.getIcons().add(
+            new Image(getClass().getResourceAsStream("/com/example/icons/foldergen.png"))
+        );
+
+        stage.setTitle("FolderGen");
         stage.setMinWidth(600);
         stage.setMinHeight(400);
         stage.setScene(scene);
