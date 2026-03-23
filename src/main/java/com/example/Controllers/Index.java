@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -218,6 +219,10 @@ public class Index {
 
             scene.getStylesheets().add(
                     getClass().getResource("/com/example/style/index.css").toExternalForm()
+            );
+            
+            stage.getIcons().add(
+                new Image(getClass().getResourceAsStream("/com/example/icons/foldergen.png"))
             );
 
             stage.setScene(scene);

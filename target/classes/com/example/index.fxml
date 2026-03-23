@@ -19,7 +19,7 @@
 
         <!-- TITLE + INSTRUCTIONS -->
         <VBox spacing="2">
-            <Label text="FolderGen"
+            <Label text="FolderGen : Folder Structure Generator"
                    style="-fx-font-size: 20px; -fx-font-weight: bold;" />
 
             <Label text="Create templates, preview structure, and generate folders"

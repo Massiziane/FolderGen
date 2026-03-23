@@ -23,7 +23,7 @@ public class FolderGen extends Application {
             new Image(getClass().getResourceAsStream("/com/example/icons/foldergen.png"))
         );
 
-        stage.setTitle("Folder Structure Generator");
+        stage.setTitle("FolderGen");
         stage.setMinWidth(600);
         stage.setMinHeight(400);
         stage.setScene(scene);
