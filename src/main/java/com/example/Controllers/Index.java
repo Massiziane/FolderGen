@@ -1,5 +1,13 @@
 package com.example.Controllers;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import com.example.model.Template;
+import com.google.gson.Gson;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -48,5 +56,13 @@ public class Index {
     @FXML
     private void handleCreate() {
         System.out.println("Create clicked");
+    }
+
+    private Template loadTemplates(Path filePath) throws IOException {
+        Gson gson = new Gson();
+
+        try( Reader reader = Files.newBufferedReader(filePath)) {
+            return gson.fromJson(reader, Template.class);
+        }
     }
 }
