@@ -1,0 +1,55 @@
+{
+  "name": "classes",
+  "root": {
+    "name": "class name",
+    "children": [
+      {
+        "name": "lessons",
+        "children": [
+          {
+            "name": "notes",
+            "children": [
+              {
+                "name": "summaries",
+                "children": []
+              },
+              {
+                "name": "graphs",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "practice",
+        "children": []
+      },
+      {
+        "name": "homework",
+        "children": [
+          {
+            "name": "done",
+            "children": []
+          },
+          {
+            "name": "started",
+            "children": []
+          },
+          {
+            "name": "todo",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "exams",
+        "children": []
+      },
+      {
+        "name": "projects",
+        "children": []
+      }
+    ]
+  }
+}
