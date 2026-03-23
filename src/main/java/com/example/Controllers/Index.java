@@ -97,7 +97,30 @@ public class Index {
 
     @FXML
     private void handleDelete() {
-        System.out.println("Delete clicked");
+        try {
+            String selectedTemplate = templateList.getSelectionModel().getSelectedItem();
+
+            if (selectedTemplate == null) {
+                System.out.println("No template selected");
+                return;
+            }
+
+            // Path to file
+            Path filePath = Paths.get("templates", selectedTemplate +".json");
+
+            // Delete file
+            Files.deleteIfExists(filePath);
+
+            // reload templates
+            loadTemplatesList();
+
+            // clear preview
+            treeView.setRoot(null);
+            
+            System.out.println("Template deleted successfully");
+            
+        } catch (Exception e) {
+        }
     }
 
     @FXML
