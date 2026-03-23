@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.stage.Stage;
 
 public class TemplateCreator {
@@ -32,6 +33,9 @@ public class TemplateCreator {
         TreeItem<String> root = new TreeItem<>("Root");
         root.setExpanded(true);
         treeView.setRoot(root);
+
+        treeView.setEditable(true);
+        treeView.setCellFactory(TextFieldTreeCell.forTreeView());
     }
 
     @FXML
