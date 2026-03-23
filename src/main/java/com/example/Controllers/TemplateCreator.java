@@ -84,8 +84,13 @@ public class TemplateCreator {
 
     @FXML
     private void handleSaveTemplate() {
-        System.out.println("Save template");
-    }
+        TreeItem<String> rootItem = treeView.getRoot();
+
+        FolderNode rootNode = convertTreeToModel(rootItem);
+
+        System.out.println("Template: " + templateNameField.getText());
+        printNode(rootNode, 0); // debug
+     }
 
     private FolderNode convertTreeToModel(TreeItem<String> item) {
         // create node from current item(folder)
@@ -97,4 +102,13 @@ public class TemplateCreator {
         }
         return node;
     } 
+
+    // debug
+    private void printNode(FolderNode node, int level) {
+        System.out.println("  ".repeat(level) + "- " +node.getName());
+
+        for (FolderNode child : node.getChildren()) {
+            printNode(child, level + 1);
+        }
+    }
 }
