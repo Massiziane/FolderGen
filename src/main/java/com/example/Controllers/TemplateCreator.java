@@ -27,6 +27,8 @@ public class TemplateCreator {
     @FXML
     private TreeView<String> treeView;
 
+    private String currentFileName = null;
+
     @FXML
     public void initialize() {
         // Default root
@@ -145,13 +147,26 @@ public class TemplateCreator {
         }
         return node;
     } 
+    
+    public void loadTemplate(Template template, String fileName) {
 
-    // debug
-    private void printNode(FolderNode node, int level) {
-        System.out.println("  ".repeat(level) + "- " +node.getName());
+        templateNameField.setText(template.getName());
+
+        TreeItem<String> rootItem = convertModelToTree(template.getRoot());
+        rootItem.setExpanded(true);
+        treeView.setRoot(rootItem);
+
+        this.currentFileName = fileName;
+    }
+
+    private TreeItem<String> convertModelToTree(FolderNode node) {
+
+        TreeItem<String> item = new TreeItem<>(node.getName());
 
         for (FolderNode child : node.getChildren()) {
-            printNode(child, level + 1);
+            item.getChildren().add(convertModelToTree(child));
         }
+
+        return item;
     }
 }

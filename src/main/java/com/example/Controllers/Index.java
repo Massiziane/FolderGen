@@ -40,6 +40,22 @@ public class Index {
                 }
             }
         );
+
+        templateList.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                String selected = templateList.getSelectionModel().getSelectedItem();
+                if(selected == null) return;
+
+                try {
+                    Path path = Paths.get("templates", selected + ".json");
+                    Template template = loadTemplates(path);
+
+                    openTemplateCreator(template, selected);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void loadTemplatesList() {
@@ -67,32 +83,7 @@ public class Index {
 
     @FXML
     private void handleAdd() {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/example/templateCreator.fxml")
-            );
-
-            Scene scene = new Scene(loader.load(), 500, 400);
-
-            Stage stage = new Stage();
-            stage.setTitle("Create Template");
-
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initOwner(templateList.getScene().getWindow());
-
-            scene.getStylesheets().add(
-                    getClass().getResource("/com/example/style/index.css").toExternalForm()
-            );
-
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.showAndWait();
-
-            loadTemplatesList();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+       openTemplateCreator(null, null);
     }
 
     @FXML
@@ -201,6 +192,43 @@ public class Index {
             for (TreeItem<?> child : item.getChildren()) {
                 expandAll(child);
             }
+        }
+    }
+
+    private void openTemplateCreator(Template template, String fileName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/templateCreator.fxml")
+            );
+
+            Scene scene = new Scene(loader.load(), 500, 400);
+
+            // controller access
+            TemplateCreator controller = loader.getController();
+
+            if (template != null) {
+                controller.loadTemplate(template, fileName);
+            }
+
+            Stage stage = new Stage();
+            stage.setTitle(template == null ? "Create Template" : "Edit Template");
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(templateList.getScene().getWindow());
+
+            scene.getStylesheets().add(
+                    getClass().getResource("/com/example/style/index.css").toExternalForm()
+            );
+
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.showAndWait();
+
+            // refresh list after close
+            loadTemplatesList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
