@@ -2,6 +2,8 @@ package com.example.Controllers;
 
 import java.util.Optional;
 
+import com.example.model.FolderNode;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
@@ -84,4 +86,15 @@ public class TemplateCreator {
     private void handleSaveTemplate() {
         System.out.println("Save template");
     }
+
+    private FolderNode convertTreeToModel(TreeItem<String> item) {
+        // create node from current item(folder)
+        FolderNode node = new FolderNode(item.getValue());
+
+        // add children recursively
+        for (TreeItem<String> child : item.getChildren()) {
+            node.addChild(convertTreeToModel(child));
+        }
+        return node;
+    } 
 }
