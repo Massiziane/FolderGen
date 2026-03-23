@@ -1,8 +1,15 @@
 package com.example.Controllers;
 
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import com.example.model.FolderNode;
+import com.example.model.Template;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -84,12 +91,40 @@ public class TemplateCreator {
 
     @FXML
     private void handleSaveTemplate() {
-        TreeItem<String> rootItem = treeView.getRoot();
 
-        FolderNode rootNode = convertTreeToModel(rootItem);
+        try {
+            String templateName = templateNameField.getText().trim();
 
-        System.out.println("Template: " + templateNameField.getText());
-        printNode(rootNode, 0); // debug
+            if(templateName.isEmpty()) {
+                System.out.println("Template name is empty");
+                return;
+            }
+
+            // convert tree to model
+            FolderNode rootNode = convertTreeToModel(treeView.getRoot());
+
+            Template template = new Template(templateName, rootNode);
+
+            // create Gson
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            // ensure templates folder exists
+            Path folderPath = Paths.get("templates");
+            Files.createDirectories(folderPath);
+
+            // File path
+            Path filePath = folderPath.resolve(templateName + ".json");
+            
+            // write to gson file
+            try(Writer writer = Files.newBufferedWriter(filePath)) {
+                gson.toJson(template, writer);
+            }
+
+            System.out.println("Templated saved: " + filePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
      }
 
     private FolderNode convertTreeToModel(TreeItem<String> item) {
