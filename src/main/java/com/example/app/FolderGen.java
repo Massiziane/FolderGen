@@ -24,5 +24,4 @@ public class FolderGen extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 }

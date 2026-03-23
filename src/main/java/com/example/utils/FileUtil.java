@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import com.example.model.FolderNode;
 
 public class FileUtil {
-    private void createFolders(FolderNode node, Path parentPath) throws IOException {
+    public static void createFolders(FolderNode node, Path parentPath) throws IOException {
         
         // create current folder
         Path currentPath = parentPath.resolve(node.getName());

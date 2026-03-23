@@ -1,17 +1,21 @@
 package com.example.Controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import com.example.model.Template;
+import com.example.utils.FileUtil;
 import com.google.gson.Gson;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -55,7 +59,30 @@ public class Index {
 
     @FXML
     private void handleCreate() {
-        System.out.println("Create clicked");
+        
+        try {
+
+            // choose template
+            Path templatePath = Paths.get("templates/YourTemplate.json");
+
+            Template template = loadTemplates(templatePath);
+            
+            // choosing destination
+            DirectoryChooser chooser = new DirectoryChooser();
+            chooser.setTitle("Select Destination Path");
+
+            File selectedDir = chooser.showDialog(templateList.getScene().getWindow());
+
+            if(selectedDir == null) {
+                return;
+            }
+
+            // generate folder structure
+            FileUtil.createFolders(template.getRoot(), selectedDir.toPath());
+
+            System.out.println("Folder structure generated successfully");
+        } catch (Exception e) {
+        }
     }
 
     private Template loadTemplates(Path filePath) throws IOException {
