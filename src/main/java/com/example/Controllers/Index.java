@@ -224,8 +224,31 @@ public class Index {
             stage.setResizable(false);
             stage.showAndWait();
 
-            // refresh list after close
+            // refresh after close
             loadTemplatesList();
+            refreshPreview();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void refreshPreview() {
+        String selected = templateList.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            treeView.setRoot(null);
+            return;
+        }
+
+        try {
+            Path path = Paths.get("templates", selected + ".json");
+            Template template = loadTemplates(path);
+
+            TreeItem<String> root = convertModelToTree(template.getRoot());
+            expandAll(root);
+
+            treeView.setRoot(root);
 
         } catch (Exception e) {
             e.printStackTrace();

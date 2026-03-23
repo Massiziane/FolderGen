@@ -120,14 +120,29 @@ public class TemplateCreator {
             Files.createDirectories(folderPath);
 
             // File path
-            Path filePath = folderPath.resolve(templateName + ".json");
+            Path newFilePath = folderPath.resolve(templateName + ".json");
+            // check if file already exists
+            if(Files.exists(newFilePath) &&
+            (currentFileName == null || !currentFileName.equals(templateName))){
+                System.out.println("Template name already exists");
+                return;
+            }  
+
+            // handle rename
+            if (currentFileName != null) {
+                Path oldFilePath = folderPath.resolve(currentFileName + ".json");
+
+                if(!currentFileName.equals(templateName)) {
+                    Files.deleteIfExists(oldFilePath);
+                }
+            }
             
             // write to gson file
-            try(Writer writer = Files.newBufferedWriter(filePath)) {
+            try(Writer writer = Files.newBufferedWriter(newFilePath)) {
                 gson.toJson(template, writer);
             }
 
-            System.out.println("Templated saved: " + filePath);
+            System.out.println("Templated saved: " + newFilePath);
             // close window
             Stage stage = (Stage) templateNameField.getScene().getWindow();
             stage.close();
