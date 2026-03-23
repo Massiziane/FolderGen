@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.example.model.FolderNode;
 import com.example.model.Template;
 import com.example.utils.FileUtil;
 import com.google.gson.Gson;
@@ -15,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,8 +28,18 @@ public class Index {
     private ListView<String> templateList;
 
     @FXML
+    private TreeView<String> treeView;
+
+    @FXML
     private void initialize() {
         loadTemplatesList();
+        templateList.getSelectionModel().selectedItemProperty().addListener(
+            (obs, oldVal, newVal) -> {
+                if (newVal != null) {
+                    showTemplatePreview(newVal);
+                }
+            }
+        );
     }
 
     private void loadTemplatesList() {
@@ -128,6 +141,43 @@ public class Index {
 
         try( Reader reader = Files.newBufferedReader(filePath)) {
             return gson.fromJson(reader, Template.class);
+        }
+    }
+    
+    private TreeItem<String> convertModelToTree(FolderNode node) {
+
+        TreeItem<String> item = new TreeItem<>(node.getName());
+
+        for (FolderNode child : node.getChildren()) {
+            item.getChildren().add(convertModelToTree(child));
+        }
+
+        return item;
+    }
+    private void showTemplatePreview(String templateName) {
+
+    try {
+            Path path = Paths.get("templates", templateName + ".json");
+
+            Template template = loadTemplates(path);
+
+            TreeItem<String> rootItem = convertModelToTree(template.getRoot());
+
+            treeView.setRoot(rootItem);
+            treeView.setShowRoot(true);
+
+            expandAll(rootItem); 
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void expandAll(TreeItem<?> item) {
+        if (item != null) {
+            item.setExpanded(true);
+            for (TreeItem<?> child : item.getChildren()) {
+                expandAll(child);
+            }
         }
     }
 }
