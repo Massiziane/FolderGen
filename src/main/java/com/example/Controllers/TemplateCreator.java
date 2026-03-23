@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.stage.Stage;
 
 public class TemplateCreator {
 
@@ -121,6 +122,9 @@ public class TemplateCreator {
             }
 
             System.out.println("Templated saved: " + filePath);
+            // close window
+            Stage stage = (Stage) templateNameField.getScene().getWindow();
+            stage.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -75,6 +75,8 @@ public class Index {
             stage.setResizable(false);
             stage.showAndWait();
 
+            loadTemplatesList();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
