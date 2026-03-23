@@ -1,7 +1,10 @@
 package com.example.Controllers;
 
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
@@ -23,7 +26,35 @@ public class TemplateCreator {
 
     @FXML
     private void handleAddFolder() {
-        System.out.println("Add folder");
+        
+        // input dialog
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Add Folder");
+        dialog.setHeaderText("Enter folder name:");
+        dialog.setContentText("Folder name:");
+
+        // Show the dialog and wait for the user to close it
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent() && !result.get().isEmpty()) {
+
+            String folderName = result.get().trim();
+
+            // create new tree item
+            TreeItem<String> newItem = new TreeItem<>(folderName);
+            
+            // get selected item
+            TreeItem<String> selected = treeView.getSelectionModel().getSelectedItem();
+
+            if (selected != null) {
+                // add new item to selected item
+                selected.getChildren().add(newItem);
+                selected.setExpanded(true);
+            } else {
+                // add new item to root
+                treeView.getRoot().getChildren().add(newItem);
+            }
+        }
     }
 
     @FXML
