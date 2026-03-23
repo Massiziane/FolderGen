@@ -59,7 +59,25 @@ public class TemplateCreator {
 
     @FXML
     private void handleRemoveFolder() {
-        System.out.println("Remove folder");
+        // Get selected Item
+        TreeItem<String> selected = treeView.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            return;
+        }
+
+        // prevent deleting the root folder
+        if (selected == treeView.getRoot()) {
+            System.out.println("Cannot delete root folder");
+            return;
+        }
+
+        // get parent
+        TreeItem<String> parent = selected.getParent();
+
+        if(parent != null) {
+            parent.getChildren().remove(selected);
+        }
     }
 
     @FXML
