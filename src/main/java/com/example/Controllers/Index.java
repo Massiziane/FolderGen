@@ -25,6 +25,34 @@ public class Index {
     private ListView<String> templateList;
 
     @FXML
+    private void initialize() {
+        loadTemplatesList();
+    }
+
+    private void loadTemplatesList() {
+        try {
+            // load templates
+            Path templatesDir = Paths.get("templates");
+            
+            if(!Files.exists(templatesDir)) {
+                Files.createDirectories(templatesDir);
+            }
+            // clear list
+            templateList.getItems().clear();
+            // load templates
+            try(var stream = Files.newDirectoryStream(templatesDir, "*.json")) {
+                for (Path entry : stream) {
+                    String name = entry.getFileName().toString().replace(".json", "");
+                    templateList.getItems().add(name);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void handleAdd() {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -63,9 +91,16 @@ public class Index {
         try {
 
             // choose template
-            Path templatePath = Paths.get("templates/YourTemplate.json");
+            String selectedTemplate = templateList.getSelectionModel().getSelectedItem();
 
-            Template template = loadTemplates(templatePath);
+            if(selectedTemplate == null) {
+                System.out.println("No template selected");
+                return;
+            }
+
+            // load template
+            Path filePath = Paths.get("templates/" + selectedTemplate + ".json");
+            Template template = loadTemplates(filePath);
             
             // choosing destination
             DirectoryChooser chooser = new DirectoryChooser();
@@ -82,6 +117,7 @@ public class Index {
 
             System.out.println("Folder structure generated successfully");
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
