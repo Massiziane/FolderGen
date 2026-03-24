@@ -37,6 +37,13 @@
     -fx-text-fill: white;
 }
 
+.tree-disclosure-node > .arrow,
+.tree-item:expanded > .tree-disclosure-node > .arrow,
+.tree-disclosure-node:hover > .arrow {
+    -fx-background-color: white;
+}
+
+
 /* Buttons */
 .button {
     -fx-background-color: #3b82f6;

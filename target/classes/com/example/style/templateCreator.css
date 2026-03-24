@@ -74,3 +74,9 @@
 .vbox {
     -fx-spacing: 10;
 }
+
+.tree-disclosure-node > .arrow,
+.tree-item:expanded > .tree-disclosure-node > .arrow,
+.tree-disclosure-node:hover > .arrow {
+    -fx-background-color: white;
+}
